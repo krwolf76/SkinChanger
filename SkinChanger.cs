@@ -8,7 +8,7 @@ using Oxide.Core;
 
 namespace Oxide.Plugins
 {
-	[Info("SkinChanger", "KR_WOLF#5912", "1.0.0")]
+	[Info("SkinChanger", "WOLF", "1.0.0")]
 	[Description("Change Skins")]
 
 	class SkinChanger : RustPlugin
