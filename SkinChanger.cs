@@ -82,12 +82,11 @@ namespace Oxide.Plugins
                 held.skinID = skinID;
                 held.SendNetworkUpdate();
             }
-            PrintToChat(player, Lang("Active_Change", null, skinID));
+            PrintToChat(player, Lang("Active_Change", null, skinID, item.info.shortname, item.skin));
         }
 
         private void SetBelt(BasePlayer player, Item item, string skinIDString, string belt)
         {
-            Puts("2");
             var skinID = 0UL;
             if (ulong.TryParse(skinIDString, out skinID) == false)
             {
@@ -114,7 +113,7 @@ namespace Oxide.Plugins
                 held.skinID = skinID;
                 held.SendNetworkUpdate();
             }
-            PrintToChat(Lang("Belt_Change", null, skinID, beltpostion));
+            PrintToChat(player, Lang("Belt_Change", null, skinID, beltpostion, item.info.shortname, item.skin));
         }
 
         #region Lang
@@ -122,26 +121,26 @@ namespace Oxide.Plugins
         {
             lang.RegisterMessages(new Dictionary<string, string>
             {
-                ["Descriptions"] = "[ {0} ] -\n" +
+                ["Descriptions"] = "{0}\n" +
                 "/{1} skinid\n" +
                 "(Changed Skin.[ALL])\n" +
                 "/{1} skinid 0~5\n" +
                 "(Change the skin to position 0 on the belt.[Cloth Only])",
-                ["Active_Change"] = "Skin changed to {0}",
-                ["Belt_Change"] = "{0} | {1}",
+                ["Active_Change"] = "{1} - {2} Skin changed to {0}",
+                ["Belt_Change"] = "Belt {1} postion {2} item changed to {0} skin",
                 ["Permission"] = "<color=red>Not permission.</color>",
                 ["Error"] = "Please enter the correct unique number",
                 ["Lang"] = "The default language has been changed to {0}."
             }, this, "en");
             lang.RegisterMessages(new Dictionary<string, string>
             {
-                ["Descriptions"] = "{0} -\n" +
+                ["Descriptions"] = "{0}\n" +
                 "/{1} 스킨고유번호\n" +
                 "(스킨이 변경됩니다.[전체])\n" +
                 "/{1} 스킨고유번호 0\n" +
                 "(벨트 0번 위치에 스킨을 변경합니다.[옷전용])",
                 ["Active_Change"] = "{0} 으로 스킨이 변경되었습니다.",
-                ["Belt_Change"] = "{0} | {1}",
+                ["Belt_Change"] = "벨트 {1} 위치 {2} 아이템 스킨이 {0} 으로 변경되었습니다.",
                 ["Permission"] = "<color=red>당신은 권한이 없습니다.</color>",
                 ["Error"] = "정확한 고유번호를 입력하세요.",
                 ["Lang"] = "기본 언어가 {0} 로 변경되었습니다."
@@ -170,7 +169,7 @@ namespace Oxide.Plugins
         {
 
             [JsonProperty("Prefix")]
-            public string Prefix { get; set; } = "<color=#00ffff>[ 알림 ] </color>";
+            public string Prefix { get; set; } = "<color=#00ffff>[ SkinChanger ]</color> - ";
             [JsonProperty("Default Language Settings")]
             public string DefaultLang { get; set; } = "en";
             [JsonProperty("Command Settings")]
